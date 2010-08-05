@@ -34,7 +34,7 @@ class Graph {
         typedef unsigned long vertex_descriptor;          // fix!
         typedef pair<vertex_descriptor, vertex_descriptor> edge_descriptor;            // fix!
 
-        typedef const vertex_descriptor* vertex_iterator;           // fix!
+        typedef unsigned long vertex_iterator;           // fix!
         typedef const edge_descriptor* edge_iterator;             // fix!
         typedef const vertex_descriptor* adjacency_iterator;        // fix!
 
@@ -69,7 +69,7 @@ class Graph {
          */
         friend vertex_descriptor add_vertex (Graph& theGraph) {
             theGraph.g.push_back(vector<vertex_descriptor>());
-            theGraph.my_vertices.push_back(theGraph.g.size() - 1);
+            my_vertices.push_back(theGraph.g.size() - 1);
             return theGraph.g.size() - 1;}
 
         // -----------------
@@ -128,7 +128,7 @@ class Graph {
          * <your documentation>
          */
         friend vertices_size_type num_vertices (const Graph& theGraph) {
-            return theGraph.my_vertices.size();}
+            return my_vertices.size();}
 
         // ------
         // source
@@ -158,7 +158,7 @@ class Graph {
          * <your documentation>
          */
         friend vertex_descriptor vertex (vertices_size_type vindex, const Graph& theGraph) {
-            return theGraph.my_vertices[vindex];}
+            return my_vertices[vindex];}
 
         // --------
         // vertices
@@ -168,7 +168,7 @@ class Graph {
          * <your documentation>
          */
         friend pair<vertex_iterator, vertex_iterator> vertices (const Graph& theGraph) {
-            return make_pair(&*theGraph.my_vertices.begin(), &*theGraph.my_vertices.end());}
+            return make_pair(my_vertices.begin(), my_vertices.end());}
 
     private:
         // ----
@@ -177,7 +177,7 @@ class Graph {
 
         vector< vector<vertex_descriptor> > g;
         vector<edge_descriptor> my_edges;
-        vector<vertex_descriptor> my_vertices;
+        vector<unsigned long> my_vertices;
 
         // -----
         // valid

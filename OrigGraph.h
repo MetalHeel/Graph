@@ -34,7 +34,7 @@ class Graph {
         typedef unsigned long vertex_descriptor;          // fix!
         typedef pair<vertex_descriptor, vertex_descriptor> edge_descriptor;            // fix!
 
-        typedef const vertex_descriptor* vertex_iterator;           // fix!
+        typedef unsigned long vertex_iterator;           // fix!
         typedef const edge_descriptor* edge_iterator;             // fix!
         typedef const vertex_descriptor* adjacency_iterator;        // fix!
 
@@ -168,7 +168,7 @@ class Graph {
          * <your documentation>
          */
         friend pair<vertex_iterator, vertex_iterator> vertices (const Graph& theGraph) {
-            return make_pair(&*theGraph.my_vertices.begin(), &*theGraph.my_vertices.end());}
+            return make_pair(theGraph.my_vertices.begin(), theGraph.my_vertices.end());}
 
     private:
         // ----
@@ -177,7 +177,7 @@ class Graph {
 
         vector< vector<vertex_descriptor> > g;
         vector<edge_descriptor> my_edges;
-        vector<vertex_descriptor> my_vertices;
+        vector<unsigned long> my_vertices;
 
         // -----
         // valid

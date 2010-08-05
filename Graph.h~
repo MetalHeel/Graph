@@ -15,7 +15,6 @@
 #include <cstddef> // size_t
 #include <utility> // make_pair, pair
 #include <vector>  // vector
-#include <deque>  // deque
 #include <algorithm>
 
 using namespace std;
@@ -32,12 +31,12 @@ class Graph {
         // typedefs
         // --------
 
-        typedef int vertex_descriptor;          // fix!
+        typedef unsigned long vertex_descriptor;          // fix!
         typedef pair<vertex_descriptor, vertex_descriptor> edge_descriptor;            // fix!
 
-        typedef int* vertex_iterator;           // fix!
-        typedef pair<vertex_descriptor, vertex_descriptor>* edge_iterator;             // fix!
-        typedef int* adjacency_iterator;        // fix!
+        typedef vertex_descriptor* vertex_iterator;           // fix!
+        typedef const edge_descriptor* edge_iterator;             // fix!
+        typedef const vertex_descriptor* adjacency_iterator;        // fix!
 
         typedef size_t vertices_size_type;
         typedef size_t edges_size_type;
@@ -51,19 +50,14 @@ class Graph {
          * <your documentation>
          */
         friend pair<edge_descriptor, bool> add_edge (vertex_descriptor vone, vertex_descriptor vtwo, Graph& theGraph) {
-            
-            edge_descriptor thisEdge;
+            edge_descriptor thisEdge = make_pair(vone, vtwo);
             bool success = false;
-
-            /*if((deque(*v1)).end() == find((deque(*v1)).begin(), (deque(*v1)).end(), v2)) //if the edge does not already exist
+            if(find(theGraph.g[vone].begin(), theGraph.g[vone].end(), vtwo) == theGraph.g[vone].end())
             {
-                (deque(*v1)).push_back(v2);
+                theGraph.g[vone].push_back(vtwo);
+                theGraph.my_edges.push_back(thisEdge);
                 success = true;
             }
-            else                                              //if the edge does already exist
-            {
-              thisEdge = make_pair(v1, v2);
-            }*/
             return make_pair(thisEdge, success);}
 
         // ----------
@@ -74,11 +68,9 @@ class Graph {
          * <your documentation>
          */
         friend vertex_descriptor add_vertex (Graph& theGraph) {
-            vertex_descriptor vd;
-            deque* searchResult = &(*find(theGraph.g.begin(), theGraph.g.end(), 0));
-            //theGraph.g.push_back(deque<vertex_descriptor>());
-            //return (vertex_descriptor)&theGraph.g.back();}
-            return vd;}
+            theGraph.g.push_back(vector<vertex_descriptor>());
+            theGraph.my_vertices.push_back(theGraph.g.size() - 1);
+            return theGraph.g.size() - 1;}
 
         // -----------------
         // adjacent_vertices
@@ -87,10 +79,9 @@ class Graph {
         /**
          * <your documentation>
          */
-        friend pair<adjacency_iterator, adjacency_iterator> adjacent_vertices (vertex_descriptor, const Graph&) {
-            // <your code>
-            adjacency_iterator b = adjacency_iterator();
-            adjacency_iterator e = adjacency_iterator();
+        friend pair<adjacency_iterator, adjacency_iterator> adjacent_vertices (vertex_descriptor v, const Graph& theGraph) {
+            adjacency_iterator b = &*theGraph.g[v].begin();
+            adjacency_iterator e = &*theGraph.g[v].end();
             return make_pair(b, e);}
 
         // ----
@@ -100,11 +91,12 @@ class Graph {
         /**
          * <your documentation>
          */
-        friend pair<edge_descriptor, bool> edge (vertex_descriptor, vertex_descriptor, const Graph&) {
-            // <your code>
-            edge_descriptor ed;
-            bool            b;
-            return make_pair(ed, b);}
+        friend pair<edge_descriptor, bool> edge (vertex_descriptor vone, vertex_descriptor vtwo, const Graph& theGraph) {
+            edge_descriptor ed = make_pair(vone, vtwo);
+            bool success = false;
+            if(find(theGraph.g[vone].begin(), theGraph.g[vone].end(), vtwo) != theGraph.g[vone].end())
+                success = true;
+            return make_pair(ed, success);}
 
         // -----
         // edges
@@ -115,11 +107,8 @@ class Graph {
          * O(1) in time
          * <your documentation>
          */
-        friend pair<edge_iterator, edge_iterator> edges (const Graph&) {
-            // <your code>
-            edge_iterator b;
-            edge_iterator e;
-            return make_pair(b, e);}
+        friend pair<edge_iterator, edge_iterator> edges (const Graph& theGraph) {
+            return make_pair(&*theGraph.my_edges.begin(), &*theGraph.my_edges.end());}
 
         // ---------
         // num_edges
@@ -128,10 +117,8 @@ class Graph {
         /**
          * <your documentation>
          */
-        friend edges_size_type num_edges (const Graph&) {
-            // <your code>
-            edges_size_type s;
-            return s;}
+        friend edges_size_type num_edges (const Graph& theGraph) {
+            return theGraph.my_edges.size();}
 
         // ------------
         // num_vertices
@@ -140,10 +127,8 @@ class Graph {
         /**
          * <your documentation>
          */
-        friend vertices_size_type num_vertices (const Graph&) {
-            // <your code>
-            vertices_size_type s;
-            return s;}
+        friend vertices_size_type num_vertices (const Graph& theGraph) {
+            return theGraph.my_vertices.size();}
 
         // ------
         // source
@@ -152,10 +137,8 @@ class Graph {
         /**
          * <your documentation>
          */
-        friend vertex_descriptor source (edge_descriptor, const Graph&) {
-            // <your code>
-            vertex_descriptor v;
-            return v;}
+        friend vertex_descriptor source (edge_descriptor ed, const Graph& theGraph) {
+            return ed.first;}
 
         // ------
         // target
@@ -164,10 +147,8 @@ class Graph {
         /**
          * <your documentation>
          */
-        friend vertex_descriptor target (edge_descriptor, const Graph&) {
-            // <your code>
-            vertex_descriptor v;
-            return v;}
+        friend vertex_descriptor target (edge_descriptor ed, const Graph& theGraph) {
+            return ed.second;}
 
         // ------
         // vertex
@@ -176,10 +157,8 @@ class Graph {
         /**
          * <your documentation>
          */
-        friend vertex_descriptor vertex (vertices_size_type, const Graph&) {
-            // <your code>
-            vertex_descriptor vd;
-            return vd;}
+        friend vertex_descriptor vertex (vertices_size_type vindex, const Graph& theGraph) {
+            return theGraph.my_vertices[vindex];}
 
         // --------
         // vertices
@@ -188,18 +167,17 @@ class Graph {
         /**
          * <your documentation>
          */
-        friend pair<vertex_iterator, vertex_iterator> vertices (const Graph&) {
-            // <your code>
-            vertex_iterator b = vertex_iterator();
-            vertex_iterator e = vertex_iterator();
-            return make_pair(b, e);}
+        friend pair<vertex_iterator, vertex_iterator> vertices (const Graph& theGraph) {
+            return make_pair(&*theGraph.my_vertices.begin(), &*theGraph.my_vertices.end());}
 
     private:
         // ----
         // data
         // ----
 
-        deque<deque <vertex_descriptor> > g; // something like this
+        vector< vector<vertex_descriptor> > g;
+        vector<edge_descriptor> my_edges;
+        vector<vertex_descriptor> my_vertices;
 
         // -----
         // valid
