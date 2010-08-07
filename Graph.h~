@@ -34,7 +34,7 @@ class Graph {
         typedef unsigned long vertex_descriptor;          // fix!
         typedef pair<vertex_descriptor, vertex_descriptor> edge_descriptor;            // fix!
 
-        typedef vertex_descriptor* vertex_iterator;           // fix!
+        typedef const vertex_descriptor* vertex_iterator;           // fix!
         typedef const edge_descriptor* edge_iterator;             // fix!
         typedef const vertex_descriptor* adjacency_iterator;        // fix!
 
@@ -52,7 +52,7 @@ class Graph {
         friend pair<edge_descriptor, bool> add_edge (vertex_descriptor vone, vertex_descriptor vtwo, Graph& theGraph) {
             edge_descriptor thisEdge = make_pair(vone, vtwo);
             bool success = false;
-            if(find(theGraph.g[vone].begin(), theGraph.g[vone].end(), vtwo) == theGraph.g[vone].end())
+            if(find(theGraph.g[vone].begin(), theGraph.g[vone].end(), vtwo) == theGraph.g[vone].end() && vone != vtwo)
             {
                 theGraph.g[vone].push_back(vtwo);
                 theGraph.my_edges.push_back(thisEdge);
@@ -158,6 +158,8 @@ class Graph {
          * <your documentation>
          */
         friend vertex_descriptor vertex (vertices_size_type vindex, const Graph& theGraph) {
+            if(theGraph.my_vertices.size() == 0)
+                return 0;
             return theGraph.my_vertices[vindex];}
 
         // --------
@@ -187,7 +189,13 @@ class Graph {
          * <your documentation>
          */
         bool valid () const {
-            // <your code>
+            if(my_edges.size() == 0 && my_vertices.size() == 0)
+                return true;
+            for(int x = 0; x < (int)my_edges.size(); x++)
+            {
+                if(!edge(my_edges[x].first, my_edges[x].second, this).second)
+                  return false;
+            }
             return true;}
 
     public:
