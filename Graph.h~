@@ -193,7 +193,7 @@ class Graph {
                 return true;
             for(int x = 0; x < (int)my_edges.size(); x++)
             {
-                if(!edge(my_edges[x].first, my_edges[x].second, this).second)
+                if(!edge(my_edges[x].first, my_edges[x].second, *this).second)
                   return false;
             }
             return true;}

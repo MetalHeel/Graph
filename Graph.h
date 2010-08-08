@@ -52,7 +52,7 @@ class Graph {
         friend pair<edge_descriptor, bool> add_edge (vertex_descriptor vone, vertex_descriptor vtwo, Graph& theGraph) {
             edge_descriptor thisEdge = make_pair(vone, vtwo);
             bool success = false;
-            if(find(theGraph.g[vone].begin(), theGraph.g[vone].end(), vtwo) == theGraph.g[vone].end() && vone != vtwo)
+            if(find(theGraph.g[vone].begin(), theGraph.g[vone].end(), vtwo) == theGraph.g[vone].end())
             {
                 theGraph.g[vone].push_back(vtwo);
                 theGraph.my_edges.push_back(thisEdge);
