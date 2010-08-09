@@ -55,6 +55,7 @@ struct TestGraph : CppUnit::TestFixture {
     // tests
     // -----
 
+    //graph g
     graph_type g;
 
     vertex_descriptor vdA;
@@ -66,26 +67,67 @@ struct TestGraph : CppUnit::TestFixture {
     vertex_descriptor vdG;
     vertex_descriptor vdH;
 
-    edge_descriptor edAB;
-    edge_descriptor edAC;
-    edge_descriptor edAE;
-    edge_descriptor edBD;
-    edge_descriptor edBE;
-    edge_descriptor edCD;
-    edge_descriptor edDE;
-    edge_descriptor edDF;
-    edge_descriptor edFD;
-    edge_descriptor edFH;
-    edge_descriptor edGH;
+    edge_descriptor   edAB;
+    edge_descriptor   edAC;
+    edge_descriptor   edAE;
+    edge_descriptor   edBD;
+    edge_descriptor   edBE;
+    edge_descriptor   edCD;
+    edge_descriptor   edDE;
+    edge_descriptor   edDF;
+    edge_descriptor   edFD;
+    edge_descriptor   edFH;
+    edge_descriptor   edGH;
 
+    //graph g1
+    graph_type g1;
+
+    vertex_descriptor vdA1; //floats
+    vertex_descriptor vdB1; //no incomming edges
+    vertex_descriptor vdC1; //floats
+    vertex_descriptor vdD1;
+    vertex_descriptor vdE1;
+    vertex_descriptor vdF1;
+    vertex_descriptor vdG1;
+    vertex_descriptor vdH1;
+    vertex_descriptor vdI1;
+    vertex_descriptor vdJ1;
+    vertex_descriptor vdK1;
+    vertex_descriptor vdL1; //no incomming edges
+    vertex_descriptor vdM1;
+    vertex_descriptor vdN1;
+    vertex_descriptor vdO1;
+    vertex_descriptor vdP1;
+    vertex_descriptor vdQ1;
+    vertex_descriptor vdR1; //floats
+
+    edge_descriptor   edBD1; //graph from B
+    edge_descriptor   edBE1;
+    edge_descriptor   edDF1;
+    edge_descriptor   edDG1;
+    edge_descriptor   edDH1;
+    edge_descriptor   edFJ1;
+    edge_descriptor   edGI1;
+    edge_descriptor   edHK1;
+    edge_descriptor   edIK1;
+
+    edge_descriptor   edLM1; //graph from L
+    edge_descriptor   edLN1;
+    edge_descriptor   edNO1;
+    edge_descriptor   edOP1;
+    edge_descriptor   edOQ1;
+    edge_descriptor   edPM1;
+
+    //graph g2
     graph_type g2;
 
     vertex_descriptor vdA2;
     vertex_descriptor vdB2;
 
-    edge_descriptor edAB2;
-    edge_descriptor edBA2;
+    edge_descriptor   edAB2;
+    edge_descriptor   edBA2;
 
+    //graph emptyG
     graph_type emptyG;
 
     // -----
@@ -97,6 +139,7 @@ struct TestGraph : CppUnit::TestFixture {
     // possibly cyclic
     // Collins, 2nd, pg. 653
     void setUp () {
+        //graph g
         vdA  = add_vertex(g);
         vdB  = add_vertex(g);
         vdC  = add_vertex(g);
@@ -113,10 +156,48 @@ struct TestGraph : CppUnit::TestFixture {
         edCD = add_edge(vdC, vdD, g).first;
         edDE = add_edge(vdD, vdE, g).first;
         edDF = add_edge(vdD, vdF, g).first;
-        //edFD = add_edge(vdF, vdD, g).first;
+        edFD = add_edge(vdF, vdD, g).first;
         edFH = add_edge(vdF, vdH, g).first;
         edGH = add_edge(vdG, vdH, g).first;
 
+        //graph g1
+        vdA1  = add_vertex(g1);
+        vdB1  = add_vertex(g1);
+        vdC1  = add_vertex(g1);
+        vdD1  = add_vertex(g1);
+        vdE1  = add_vertex(g1);
+        vdF1  = add_vertex(g1);
+        vdG1  = add_vertex(g1);
+        vdH1  = add_vertex(g1);
+        vdI1  = add_vertex(g1);
+        vdJ1  = add_vertex(g1);
+        vdK1  = add_vertex(g1);
+        vdL1  = add_vertex(g1);
+        vdM1  = add_vertex(g1);
+        vdN1  = add_vertex(g1);
+        vdO1  = add_vertex(g1);
+        vdP1  = add_vertex(g1);
+        vdQ1  = add_vertex(g1);
+        vdR1  = add_vertex(g1);
+
+        edBD1 = add_edge(vdB1, vdD1, g1).first;
+        edBE1 = add_edge(vdB1, vdE1, g1).first;
+        edDF1 = add_edge(vdD1, vdF1, g1).first;
+        edDG1 = add_edge(vdD1, vdG1, g1).first;
+        edDH1 = add_edge(vdD1, vdH1, g1).first;
+        edFJ1 = add_edge(vdF1, vdJ1, g1).first;
+        edGI1 = add_edge(vdG1, vdI1, g1).first;
+        edHK1 = add_edge(vdH1, vdK1, g1).first;
+        edIK1 = add_edge(vdI1, vdK1, g1).first;
+
+        edLM1 = add_edge(vdL1, vdM1, g1).first;
+        edLN1 = add_edge(vdL1, vdN1, g1).first;
+        edNO1 = add_edge(vdN1, vdO1, g1).first;
+        edOP1 = add_edge(vdO1, vdP1, g1).first;
+        edOQ1 = add_edge(vdO1, vdQ1, g1).first;
+        edPM1 = add_edge(vdP1, vdM1, g1).first;
+
+        //graph g2
         vdA2 = add_vertex(g2);
         vdB2 = add_vertex(g2);
         edAB2 = add_edge(vdA2, vdB2, g2).first;
@@ -341,14 +422,31 @@ struct TestGraph : CppUnit::TestFixture {
     void test_has_cycle () {
         CPPUNIT_ASSERT(has_cycle(g));}
 
+    void test_has_cycle_1 () {
+        CPPUNIT_ASSERT(!has_cycle(g1));}
+
+    void test_has_cycle_2 () {
+        CPPUNIT_ASSERT(!has_cycle(emptyG));}
+
     // ---------------------
     // test_topological_sort
     // ---------------------
 
-    void test_topological_sort () {
+    /*void test_topological_sort () {
         std::ostringstream out;
         topological_sort(g, std::ostream_iterator<vertex_descriptor>(out, " "));
+        std::cout << "test: " << out.str() << std::endl;}*/
+
+    void test_topological_sort_1 () {
+        std::ostringstream out;
+        topological_sort(g1, std::ostream_iterator<vertex_descriptor>(out, " "));
         std::cout << "test: " << out.str() << std::endl;}
+
+    void test_topological_sort_2 () {
+        std::ostringstream out;
+        topological_sort(emptyG, std::ostream_iterator<vertex_descriptor>(out, " "));
+//         std::cout << "test: " << out.str() << std::endl;
+}
 
     // ---------------------
     // test_graph2
@@ -400,7 +498,12 @@ struct TestGraph : CppUnit::TestFixture {
     CPPUNIT_TEST(test_vertex1);
     CPPUNIT_TEST(test_vertices);
     CPPUNIT_TEST(test_vertices_b1);
+    CPPUNIT_TEST(test_has_cycle);
+    CPPUNIT_TEST(test_has_cycle_1);
+    CPPUNIT_TEST(test_has_cycle_2);
     CPPUNIT_TEST(test_topological_sort);
+    CPPUNIT_TEST(test_topological_sort_1);
+    CPPUNIT_TEST(test_topological_sort_2);
     CPPUNIT_TEST(test_graph2);
     CPPUNIT_TEST(test_assignment);
     CPPUNIT_TEST_SUITE_END();};
