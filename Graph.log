@@ -1,0 +1,35 @@
+commit 58d126f3a5b4e3f1bc7ad658189ab42be50082bc
+Author: Bram <MetalHeel@aol.com>
+Date:   Sun Aug 8 20:48:49 2010 -0500
+
+    Final add; we should be done...
+
+commit d7f3603034ab094a30d64e47a580f56b3790165e
+Author: Bram <MetalHeel@aol.com>
+Date:   Sat Aug 7 23:32:52 2010 -0500
+
+    Topological sort possibly working...
+
+commit 1c7169232915c89547d5d9e01999b81b4f942c2d
+Author: Bram <MetalHeel@aol.com>
+Date:   Fri Aug 6 22:50:00 2010 -0500
+
+    Got a Graph.h pretty much done...
+
+commit 0084c856bfeb1cd19148efdac5a741e222bd485f
+Author: Bram <MetalHeel@aol.com>
+Date:   Thu Aug 5 18:42:09 2010 -0500
+
+    Hacked, but done...
+
+commit bd5efb1ee7f21c2f9d119e9e60592300e8346039
+Author: Bram <MetalHeel@aol.com>
+Date:   Thu Aug 5 15:48:16 2010 -0500
+
+    Getting started...
+
+commit 20056b122e3f6f884d2009d105f800931f2bb5fd
+Author: Bram <MetalHeel@aol.com>
+Date:   Thu Aug 5 12:12:45 2010 -0500
+
+    Making the repository...
